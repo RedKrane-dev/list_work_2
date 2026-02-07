@@ -48,7 +48,7 @@ def min_max_lists(list_1: list[int], list_2: list[int]) -> tuple[list[int], list
     else:
         return list_1, list_2
 
-    for zero_num in range(length_diff):
+    for _ in range(length_diff):
         min_list.append(0)
     return max_list, min_list
 
