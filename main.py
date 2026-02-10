@@ -14,48 +14,26 @@ from itertools import zip_longest
 #     return result
 
 
-# ugly crutches solution
+# crutches solution
 
 def create_sum_list(list_1: list[int], list_2: list[int]) -> list[int]:
     """
     - Принимает списки с целочисленными
     - Подсчитывает сумму соответствующих элементов и кладет в новый список
+    - Если списки разной длинны, то недостающие цифры будут ровняться '0'
     - Возвращает новый список
     """
+    max_list = max(list_1, list_2, key=len)
+    min_list = min(list_1, list_2, key=len)
+
     result = []
-    for num in range(len(list_1)):
+    for num in range(len(min_list)):
         result.append(list_1[num] + list_2[num])
+
+    result += max_list[len(min_list):]
     return result
-
-def min_max_lists(list_1: list[int], list_2: list[int]) -> tuple[list[int], list[int]]:
-    """
-    - Получает на вход два списка
-    - Определяет наименьший и заполняет разницу в длине нулями
-    - Возвращает обновленный и не обновленный списки
-    - Если списки были одной длины, то ничего не меняет и возвращает их в изначальном виде
-    """
-    list_1_len = len(list_1)
-    list_2_len = len(list_2)
-
-    if list_1_len > list_2_len:
-        min_list = list_2
-        max_list = list_1
-        length_diff = list_1_len - list_2_len
-    elif list_1_len < list_2_len:
-        min_list = list_1
-        max_list = list_2
-        length_diff = list_2_len - list_1_len
-    else:
-        return list_1, list_2
-
-    for _ in range(length_diff):
-        min_list.append(0)
-    return max_list, min_list
-
 
 num_list_1 = [1, 2, 3, 4, 5]
 num_list_2 = [10, 20, 30]
 
-new_list_1, new_list_2 = min_max_lists(num_list_1, num_list_2)
-
-print(create_sum_list(new_list_1, new_list_2))
+print(create_sum_list(num_list_1, num_list_2))
